@@ -106,6 +106,7 @@ function computeNext(){
 function historyTable(){
   $('#historyHead').innerHTML=`<tr><th>k</th>${Array.from({length:state.n},(_,i)=>`<th>x${i+1}⁽ᵏ⁾</th>`).join('')}${Array.from({length:state.n},(_,i)=>`<th>E${i+1}</th>`).join('')}<th>Emáx</th></tr>`;
   $('#historyBody').innerHTML=state.history.map(r=>`<tr><td>${r.k}</td>${r.x.map(v=>`<td>${fmt(v,7)}</td>`).join('')}${r.errors.map(v=>`<td>${v===null?'—':fmt(v,7)}</td>`).join('')}<td>${r.emax===null?'—':fmt(r.emax,7)}</td></tr>`).join('');
+  requestAnimationFrame(()=>{const wrap=$('.history-panel .table-wrap');if(wrap)wrap.scrollTop=wrap.scrollHeight;});
 }
 function buildIteration(){
   const k=state.k+1; $('#methodBadge').textContent=state.method==='jacobi'?'Método de Jacobi':'Método de Gauss-Seidel';

@@ -17,3 +17,11 @@
 .iteration-panel{overflow-anchor:none}.iteration-panel #iterationContent{min-height:540px}.iteration-actions{align-items:center}.iteration-status{color:var(--muted);font-size:.82rem}.iteration-actions #nextIteration{min-width:210px}.iteration-actions #nextIteration:disabled{background:#dfe8ec;color:#617682;cursor:default}
 @media(max-width:760px){.nav>span{display:none}.iteration-panel #iterationContent{min-height:680px}.iteration-actions{align-items:stretch}.iteration-actions .iteration-status{align-self:center}.iteration-actions #nextIteration{min-width:150px}}
 .history-panel{min-width:0;overflow:hidden}.history-panel .table-wrap{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-gutter:stable both-edges;overscroll-behavior-x:contain}.history-panel table{width:100%;min-width:820px;table-layout:fixed}.history-panel th,.history-panel td{width:auto;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}.history-panel tbody td{font-family:Consolas,"Courier New",monospace}.screen,.panel{min-width:0}
+#screen-iterations.active{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(390px,.7fr);gap:22px;align-items:start;max-width:1500px;margin-inline:calc((min(1500px,100vw - 36px) - min(1200px,100vw - 36px)) / -2)}
+#screen-iterations .history-panel{position:sticky;top:18px;margin-top:0;padding:22px}
+#screen-iterations .history-panel .table-wrap{max-height:720px;overflow:auto;border:1px solid var(--line);border-radius:12px}
+#screen-iterations .history-panel table{min-width:720px;font-size:.76rem}
+#screen-iterations .history-panel th,#screen-iterations .history-panel td{padding:9px 7px}
+#screen-iterations .history-panel thead{position:sticky;top:0;z-index:2;box-shadow:0 2px 0 var(--line)}
+#screen-iterations .history-panel tbody tr:last-child{background:#e3f5fa;outline:2px solid rgba(40,175,208,.35);outline-offset:-2px}
+@media(max-width:1080px){#screen-iterations.active{grid-template-columns:1fr;margin-inline:0}#screen-iterations .history-panel{position:static}#screen-iterations .history-panel .table-wrap{max-height:480px}}
