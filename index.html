@@ -3,87 +3,67 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sesión 6 · Sistemas lineales y LU</title>
+  <meta name="description" content="Laboratorio interactivo de Métodos Numéricos: sistemas de ecuaciones lineales.">
+  <title>Laboratorio de Métodos Numéricos</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%230d4763'/%3E%3Cpath d='M16 18h32v8H16zm0 13h22v8H16zm0 13h32v8H16z' fill='%23fff'/%3E%3Ccircle cx='46' cy='35' r='7' fill='%2329a9cf'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="hero">
-    <div>
-      <p class="eyebrow">MÉTODOS NUMÉRICOS · UNIDAD 2 · SESIÓN 6</p>
+    <nav class="nav shell" aria-label="Navegación principal">
+      <a class="brand" href="./" aria-label="Inicio"><span>MN</span> Métodos Numéricos</a>
+      <span class="unit-pill">Unidad 2</span>
+    </nav>
+    <div class="hero-copy shell">
+      <p class="eyebrow">LABORATORIO INTERACTIVO</p>
       <h1>Sistemas de ecuaciones lineales</h1>
-      <p class="subtitle">Comprende el recorrido completo: del sistema original a la solución comprobada.</p>
+      <p>Elige una sesión y recorre cada procedimiento con datos, fórmulas, resultados intermedios y comprobaciones.</p>
     </div>
-    <div class="hero-badge"><span>A</span><b>=</b><span>LU</span></div>
   </header>
 
-  <main>
-    <nav class="flow" aria-label="Etapas del ejercicio">
-      <button class="flow-step active" data-stage="0"><span>1</span><b>Plantear</b><small>AX = B</small></button>
-      <i>→</i>
-      <button class="flow-step" data-stage="1"><span>2</span><b>Factorizar</b><small>A = LU</small></button>
-      <i>→</i>
-      <button class="flow-step" data-stage="2"><span>3</span><b>Avanzar</b><small>LY = B</small></button>
-      <i>→</i>
-      <button class="flow-step" data-stage="3"><span>4</span><b>Retroceder</b><small>UX = Y</small></button>
-      <i>→</i>
-      <button class="flow-step" data-stage="4"><span>5</span><b>Comprobar</b><small>AX ≈ B</small></button>
-    </nav>
-
-    <section class="workspace">
-      <aside class="input-card">
-        <div class="section-heading">
-          <div><span class="kicker">DATOS DEL PROBLEMA</span><h2>Matriz y vector</h2></div>
-          <button id="loadExample" class="ghost">Cargar ejemplo</button>
-        </div>
-        <p class="helper">Cada fila representa una ecuación. Puedes cambiar cualquier valor antes de resolver.</p>
-        <div class="equation-layout">
-          <div><label>Matriz A</label><div id="matrixA" class="matrix-grid"></div></div>
-          <div class="operator">· X =</div>
-          <div><label>Vector B</label><div id="vectorB" class="vector-grid"></div></div>
-        </div>
-        <div class="actions">
-          <button id="solve" class="primary">Analizar y resolver</button>
-          <button id="reset" class="secondary">Limpiar</button>
-        </div>
-        <div id="message" class="message hidden"></div>
-      </aside>
-
-      <section class="explain-card">
-        <span class="kicker">LECTURA GUIADA</span>
-        <h2 id="stageTitle">1. Planteamos el sistema</h2>
-        <p id="stageIntro">Primero identificamos qué representan los datos antes de realizar operaciones.</p>
-        <div class="triple">
-          <article><span>QUÉ HACEMOS</span><p id="whatText">Organizamos los coeficientes en A y los términos independientes en B.</p></article>
-          <article><span>CÓMO SE VE</span><p id="howText">La expresión AX = B reúne todas las ecuaciones del sistema.</p></article>
-          <article><span>QUÉ OBTENEMOS</span><p id="resultText">Una representación lista para analizar y resolver.</p></article>
-        </div>
-      </section>
+  <main class="shell">
+    <section class="intro" aria-labelledby="programas-title">
+      <div>
+        <p class="eyebrow dark">RUTA DE APRENDIZAJE</p>
+        <h2 id="programas-title">Programas disponibles</h2>
+      </div>
+      <p>Cada sesión es independiente y este portal está preparado para incorporar nuevos métodos.</p>
     </section>
 
-    <section id="results" class="results hidden">
-      <div id="classification" class="classification"></div>
-      <div class="stage-panel" id="stagePanel"></div>
-      <div class="reuse-card">
-        <div>
-          <span class="kicker">SIMULACIÓN DE CAMBIO DE TRÁFICO</span>
-          <h3>Reutilizar L y U con un nuevo vector B</h3>
-          <p>Cambia el vector sin repetir la factorización. La guía propone B₂ = (20, 62, 30)ᵀ.</p>
-        </div>
-        <div id="reuseB" class="reuse-inputs">
-          <input type="number" value="20" aria-label="nuevo b1">
-          <input type="number" value="62" aria-label="nuevo b2">
-          <input type="number" value="30" aria-label="nuevo b3">
-          <button id="reuse" class="primary">Resolver sin refactorizar</button>
-        </div>
-        <div id="reuseResult" class="hidden"></div>
-      </div>
-      <div class="step-controls">
-        <button id="previous" class="secondary">← Anterior</button>
-        <div><span id="stageCounter">Etapa 1 de 5</span><div class="progress"><i id="progressBar"></i></div></div>
-        <button id="next" class="primary">Siguiente →</button>
-      </div>
+    <section class="program-grid">
+      <article class="program-card">
+        <div class="card-top"><span class="session-number">06</span><span class="status ready">Disponible</span></div>
+        <p class="family">Métodos directos</p>
+        <h3>Factorización LU</h3>
+        <p>Descompón <strong>A = LU</strong>, resuelve por sustitución hacia adelante y hacia atrás, y comprueba la respuesta.</p>
+        <ul><li>Doolittle paso a paso</li><li>Clasificación SCD, SCI o SI</li><li>Comprobación AX ≈ B</li></ul>
+        <a class="primary-link" href="sesion-6-lu/">Abrir Sesión 6 <span>→</span></a>
+      </article>
+
+      <article class="program-card featured">
+        <div class="card-top"><span class="session-number">07</span><span class="status new">Nuevo</span></div>
+        <p class="family">Métodos iterativos</p>
+        <h3>Jacobi y Gauss-Seidel</h3>
+        <p>Analiza la convergencia y construye cada aproximación sin recibir la respuesta final de inmediato.</p>
+        <ul><li>Dominancia diagonal y Sassenfeld</li><li>Iteraciones reveladas una a una</li><li>Error relativo ε = 10⁻⁴</li></ul>
+        <a class="primary-link" href="sesion-7-iterativos/">Abrir Sesión 7 <span>→</span></a>
+      </article>
+
+      <article class="program-card upcoming" aria-label="Espacio preparado para una sesión futura">
+        <div class="card-top"><span class="session-number">08</span><span class="status">Próximamente</span></div>
+        <p class="family">Siguiente método</p>
+        <h3>Espacio preparado</h3>
+        <p>La siguiente aplicación podrá añadirse como una tarjeta nueva sin modificar las sesiones anteriores.</p>
+        <div class="placeholder-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+      </article>
+    </section>
+
+    <section class="map-card">
+      <div class="map-icon">A·X=B</div>
+      <div><p class="eyebrow dark">MISMO TEMA, DISTINTOS ENFOQUES</p><h2>De métodos directos a métodos iterativos</h2><p>La Sesión 6 obtiene la solución mediante una factorización finita. La Sesión 7 genera aproximaciones sucesivas hasta satisfacer una tolerancia.</p></div>
     </section>
   </main>
-  <script src="app.js"></script>
+
+  <footer><div class="shell">Métodos Numéricos · Unidad 2 · Aplicaciones educativas</div></footer>
 </body>
 </html>
