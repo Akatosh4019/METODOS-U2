@@ -109,6 +109,7 @@ function historyTable(){
 }
 function buildIteration(){
   const k=state.k+1; $('#methodBadge').textContent=state.method==='jacobi'?'Método de Jacobi':'Método de Gauss-Seidel';
+  $('#nextIteration').disabled=false;
   if(state.phase==='calculate'){
     computeNext(); $('#iterationTitle').textContent=`Paso 4 · Construimos x⁽${k}⁾`;
     $('#iterationContent').innerHTML=`<div class="iteration-grid"><div class="used-data"><span class="tag">DATOS USADOS · PASO 2</span><h3>Ecuaciones despejadas</h3>${state.A.map((_,i)=>`<div class="equation-line">${formulaHtml(i)}</div>`).join('')}</div><div class="used-data"><span class="tag">DATOS USADOS · ${state.k===0?'PASO 3':'ITERACIÓN ANTERIOR'}</span><h3>Vector x⁽${state.k}⁾</h3><p class="final-vector">[${state.current.map(fmt).join(', ')}]ᵀ</p><p>${state.method==='jacobi'?'Todos estos valores permanecen fijos durante la iteración.':'Los valores nuevos reemplazan a los anteriores de izquierda a derecha.'}</p></div><div class="calculation error-block"><span class="tag">RESULTADO DEL PASO 4</span><h3>Sustitución y nuevos valores</h3>${state.next.map((_,i)=>`<div class="calc-line">${calculationLine(i)}</div>`).join('')}</div></div>`;
@@ -125,7 +126,8 @@ function buildIteration(){
     const last=state.history.at(-1); $('#iterationTitle').textContent='Solución aproximada comprobada';
     const residual=state.A.map((r,i)=>Math.abs(r.reduce((s,a,j)=>s+a*last.x[j],0)-state.b[i]));
     $('#iterationContent').innerHTML=`<div class="final-answer"><span class="tag">${state.stoppedByLimit?'LÍMITE ALCANZADO':'RESULTADO FINAL'}</span><h3>${state.stoppedByLimit?`Se detuvo tras ${last.k} iteraciones sin cumplir ε`:`Convergió en ${last.k} iteraciones`}</h3><p class="final-vector">X ≈ [${last.x.map(v=>fmt(v,8)).join(', ')}]ᵀ</p><p>Emáx = ${fmt(last.emax,8)} ${state.stoppedByLimit?'≥':'&lt;'} ε = ${fmt(state.tolerance,8)}</p><p>Comprobación: residual máximo ‖AX − B‖∞ = <b>${fmt(Math.max(...residual),10)}</b></p></div>`;
-    $('#nextIteration').textContent='Volver al inicio';
+    $('#nextIteration').textContent='Terminado';
+    $('#nextIteration').disabled=true;
   }
   historyTable();
 }
@@ -140,7 +142,7 @@ function advanceIteration(){
   else if(state.phase==='decision'){
     const emax=Math.max(...state.errors); state.k++; state.current=state.next.slice(); state.history.push({k:state.k,x:state.current.slice(),errors:state.errors.slice(),emax});
     if(emax<state.tolerance){state.converged=true;state.phase='finished';} else if(state.k>=state.maxIterations){state.stoppedByLimit=true;state.phase='finished';} else state.phase='calculate';
-  }else{showScreen(0);return;} buildIteration();
+  }else{return;} buildIteration();
 }
 
 $('#dimension').addEventListener('change',()=>renderInputs(true));
@@ -158,7 +160,6 @@ $('#diagnosisContent').addEventListener('click',(event)=>{
 $('#toInitial').addEventListener('click',()=>{buildInitial();showScreen(3)});
 $('#toIterations').addEventListener('click',()=>{try{readInitial();buildIteration();showScreen(4);}catch(e){alert(e.message)}});
 $('#nextIteration').addEventListener('click',advanceIteration);
-$('#iterationBack').addEventListener('click',()=>state.k===0&&state.phase==='calculate'?showScreen(3):showScreen(0));
-$('#restartBtn').addEventListener('click',()=>showScreen(0));
+$('#homeBtn').addEventListener('click',()=>showScreen(0));
 $$('.back-step').forEach((b,i)=>b.addEventListener('click',()=>showScreen(i)));
 renderInputs(true);

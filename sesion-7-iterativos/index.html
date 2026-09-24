@@ -6,12 +6,12 @@
   <meta name="description" content="Laboratorio paso a paso de Jacobi y Gauss-Seidel.">
   <title>Sesión 7 · Jacobi y Gauss-Seidel</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%230d4763'/%3E%3Cpath d='M15 20h34M15 32h25M15 44h34' stroke='%23fff' stroke-width='6'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20260924-2">
-  <link rel="stylesheet" href="method-choice.css?v=20260924-2">
+  <link rel="stylesheet" href="styles.css?v=20260924-3">
+  <link rel="stylesheet" href="method-choice.css?v=20260924-3">
 </head>
 <body>
   <header class="topbar">
-    <div class="shell nav"><a href="../" class="back">← Portal de sesiones</a><span>Unidad 2 · Sesión 7</span></div>
+    <div class="shell nav"><a href="../" class="back">← Portal de sesiones</a><span>Unidad 2 · Sesión 7</span><button id="homeBtn" class="top-home">Volver al inicio</button></div>
   </header>
   <section class="hero">
     <div class="shell hero-grid">
@@ -50,9 +50,9 @@
     <section id="screen-diagnosis" class="screen"><article class="panel"><p class="eyebrow ink">PASO 1</p><h2>Diagnóstico y elección del método</h2><p class="lead">Primero verificamos la solución única. Después los criterios indican cuáles métodos pueden utilizarse con garantía de convergencia.</p><div id="diagnosisContent"></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><span class="choice-help">Selecciona arriba uno de los métodos habilitados para continuar.</span></div></article></section>
     <section id="screen-formulas" class="screen"><article class="panel"><p class="eyebrow ink">PASO 2</p><h2>Despeje de las variables</h2><p class="lead">Cada ecuación se reorganiza para dejar la variable diagonal sola.</p><div class="source-grid"><div class="source-card"><small>DATO USADO · PASO 1</small><h3>Sistema validado</h3><div id="formulaSystem"></div></div><div class="source-card accent"><small>RESULTADO DEL PASO 2</small><h3>Ecuaciones iterativas</h3><div id="formulasContent"></div></div></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button id="toInitial" class="primary">Elegir solución inicial →</button></div></article></section>
     <section id="screen-initial" class="screen"><article class="panel"><p class="eyebrow ink">PASO 3</p><h2>Adoptamos la solución inicial</h2><p class="lead">Tal como indica la tarea, el programa utiliza automáticamente el vector trivial x⁽⁰⁾ = 0.</p><div class="initial-layout"><div id="initialInputs" class="initial-inputs" aria-label="Vector inicial automático"></div><div class="explain-box"><b>¿Por qué se necesita?</b><p>Los métodos iterativos calculan una nueva aproximación a partir de una anterior. Este vector es el punto de partida, no la respuesta, y no necesitas ingresarlo manualmente.</p></div></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button id="toIterations" class="primary">Continuar con x⁽⁰⁾ →</button></div></article></section>
-    <section id="screen-iterations" class="screen"><article class="panel"><div class="iteration-head"><div><p class="eyebrow ink">PASOS 4, 5 Y 6</p><h2 id="iterationTitle">Iteración</h2></div><span id="methodBadge" class="method-badge"></span></div><div id="iterationContent"></div><div class="actions navigation"><button id="iterationBack" class="secondary">← Regresar</button><button id="nextIteration" class="primary">Continuar →</button></div></article><article class="panel history-panel"><div class="panel-heading"><div><p class="eyebrow ink">HISTORIAL</p><h2>Tabla de iteraciones</h2></div><button id="restartBtn" class="ghost">Nuevo ejercicio</button></div><div class="table-wrap"><table><thead id="historyHead"></thead><tbody id="historyBody"></tbody></table></div></article></section>
+    <section id="screen-iterations" class="screen"><article class="panel iteration-panel"><div class="iteration-head"><div><p class="eyebrow ink">PASOS 4, 5 Y 6</p><h2 id="iterationTitle">Iteración</h2></div><span id="methodBadge" class="method-badge"></span></div><div id="iterationContent"></div><div class="actions navigation iteration-actions"><span class="iteration-status">Avanza una etapa a la vez</span><button id="nextIteration" class="primary">Continuar →</button></div></article><article class="panel history-panel"><div class="panel-heading"><div><p class="eyebrow ink">HISTORIAL</p><h2>Tabla de iteraciones</h2></div></div><div class="table-wrap"><table><thead id="historyHead"></thead><tbody id="historyBody"></tbody></table></div></article></section>
   </main>
   <footer><div class="shell">Métodos Numéricos · Sistemas de ecuaciones lineales · Sesión 7</div></footer>
-  <script src="app.js?v=20260924-2"></script>
+  <script src="app.js?v=20260924-3"></script>
 </body>
 </html>
