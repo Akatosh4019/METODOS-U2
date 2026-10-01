@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Laboratorio guiado de interpolación de Lagrange.">
+  <title>Sesión 8 · Interpolación de Lagrange</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%230d4763'/%3E%3Cpath d='M10 46C20 12 32 55 54 18' fill='none' stroke='%23fff' stroke-width='5'/%3E%3Ccircle cx='18' cy='31' r='4' fill='%2329a9cf'/%3E%3Ccircle cx='43' cy='31' r='4' fill='%2329a9cf'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=20260930-1">
+</head>
+<body>
+  <header class="topbar"><div class="shell nav"><a href="../" class="back">← Portal de sesiones</a><span>Unidad 2 · Sesión 8</span><button id="homeBtn" class="top-home">Volver al inicio</button></div></header>
+  <section class="hero"><div class="shell hero-grid"><div><p class="eyebrow">INTERPOLACIÓN POLINOMIAL</p><h1>Lagrange paso a paso</h1><p>Construimos cada polinomio base, reunimos sus aportes y recién entonces evaluamos la respuesta.</p></div><div class="formula-mark">P<sub>n</sub>(x) = Σ y<sub>k</sub>L<sub>k</sub>(x)</div></div></section>
+
+  <main class="shell main">
+    <section class="stepper" aria-label="Etapas del procedimiento">
+      <div class="step active"><b>1</b><span>Ingresar<small>nodos y x<sub>eval</sub></small></span></div><i>→</i>
+      <div class="step"><b>2</b><span>Validar<small>nodos distintos</small></span></div><i>→</i>
+      <div class="step"><b>3</b><span>Construir<small>L<sub>0</sub> ... L<sub>n</sub></small></span></div><i>→</i>
+      <div class="step"><b>4</b><span>Combinar<small>P<sub>n</sub>(x)</small></span></div><i>→</i>
+      <div class="step"><b>5</b><span>Evaluar<small>P(x<sub>eval</sub>)</small></span></div><i>→</i>
+      <div class="step"><b>6</b><span>Visualizar<small>curva y punto</small></span></div>
+    </section>
+
+    <section id="screen-input" class="screen active">
+      <div class="workspace">
+        <article class="panel">
+          <div class="panel-heading"><div><p class="eyebrow ink">DATOS DEL PROBLEMA</p><h2>Nodos experimentales</h2></div><button id="exampleBtn" class="ghost">Cargar ejercicio de la guía</button></div>
+          <p class="lead">Cada par (x<sub>i</sub>, y<sub>i</sub>) representa una medición. Puedes editar los cuatro pares antes de comenzar.</p>
+          <div class="node-table" role="group" aria-label="Nodos de interpolación">
+            <div class="node-head">Nodo</div><div class="node-head">x · Memoria GB</div><div class="node-head">y · Latencia ms</div>
+            <div class="node-label">Punto 0</div><input id="x0" type="number" step="any"><input id="y0" type="number" step="any">
+            <div class="node-label">Punto 1</div><input id="x1" type="number" step="any"><input id="y1" type="number" step="any">
+            <div class="node-label">Punto 2</div><input id="x2" type="number" step="any"><input id="y2" type="number" step="any">
+            <div class="node-label">Punto 3</div><input id="x3" type="number" step="any"><input id="y3" type="number" step="any">
+          </div>
+          <div class="eval-row"><label>Punto que deseamos estimar <span>x<sub>eval</sub></span><input id="xEval" type="number" step="any"></label><div><b>Pregunta del caso</b><span>¿Cuál será la latencia cuando el contenedor use esa cantidad de RAM?</span></div></div>
+          <div class="actions"><button id="startBtn" class="primary">Comenzar el recorrido →</button><button id="clearBtn" class="secondary">Limpiar</button></div><p id="inputError" class="error-message" hidden></p>
+        </article>
+        <aside class="guide"><p class="eyebrow ink">ANTES DE CALCULAR</p><h2>¿Qué veremos?</h2><div class="guide-item"><b>1 · Procedencia</b><span>En cada etapa se indicará qué datos anteriores se utilizan.</span></div><div class="guide-item"><b>2 · Álgebra</b><span>Verás factores, denominadores y coeficientes simplificados.</span></div><div class="guide-item"><b>3 · Interpretación</b><span>La respuesta se mostrará en ms y dentro de una gráfica.</span></div></aside>
+      </div>
+    </section>
+
+    <section id="screen-validation" class="screen"><article class="panel"><p class="eyebrow ink">PASO 1</p><h2>Validamos los datos</h2><p class="lead">Lagrange necesita valores x diferentes; si dos coinciden, aparecería una división entre cero.</p><div id="validationContent"></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button id="toBases" class="primary">Construir las bases →</button></div></article></section>
+
+    <section id="screen-bases" class="screen"><article class="panel"><p class="eyebrow ink">PASO 2</p><h2>Construimos los polinomios base</h2><p class="lead">Cada L<sub>k</sub>(x) vale 1 en su propio nodo y 0 en los demás. Avanza una base a la vez.</p><div class="source-grid"><div class="source-card"><small>DATOS USADOS · PASO 1</small><h3>Nodos x validados</h3><div id="baseSource"></div></div><div class="source-card accent"><small>RESULTADO DEL PASO 2</small><h3 id="baseTitle">Polinomio base</h3><div id="baseContent"></div></div></div><div class="mini-progress"><span id="baseProgress"></span></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button id="nextBase" class="primary">Mostrar L₀(x) →</button></div></article></section>
+
+    <section id="screen-polynomial" class="screen"><article class="panel"><p class="eyebrow ink">PASO 3</p><h2>Formamos el polinomio interpolador</h2><p class="lead">Multiplicamos cada base por su medición y sumamos los cuatro aportes.</p><div id="polynomialContent"></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button id="toEvaluation" class="primary">Evaluar el punto solicitado →</button></div></article></section>
+
+    <section id="screen-evaluation" class="screen"><article class="panel"><p class="eyebrow ink">PASO 4</p><h2>Sustituimos el punto de evaluación</h2><p class="lead">Usamos el polinomio obtenido en el paso anterior y reemplazamos x por x<sub>eval</sub>.</p><div id="evaluationContent"></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button id="toGraph" class="primary">Ver gráfica y comprobar →</button></div></article></section>
+
+    <section id="screen-graph" class="screen"><div class="result-layout"><article class="panel"><p class="eyebrow ink">PASO 5</p><h2>Resultado interpretado y comprobado</h2><div id="resultContent"></div><div class="chart-wrap"><canvas id="chart" width="900" height="470" aria-label="Curva del polinomio interpolador"></canvas><div class="legend"><span><i class="dot observed"></i>Nodos medidos</span><span><i class="line curve"></i>Polinomio P(x)</span><span><i class="dot estimated"></i>Punto estimado</span></div></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button class="finished" disabled>Terminado</button></div></article><aside class="panel audit-panel"><p class="eyebrow ink">COMPROBACIÓN</p><h2>¿La curva conserva los datos?</h2><div id="auditContent"></div></aside></div></section>
+  </main>
+  <footer><div class="shell">Métodos Numéricos · Interpolación de Lagrange · Sesión 8</div></footer>
+  <script src="app.js?v=20260930-1"></script>
+</body>
+</html>
