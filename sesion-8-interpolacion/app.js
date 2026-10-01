@@ -139,7 +139,7 @@ function renderEvaluation() {
 
 function renderResult() {
   const result=polyEval(state.polynomial,state.xEval);
-  $("#resultContent").innerHTML=`<div class="result-card"><small>RESULTADO FINAL</small><h3>P<sub>3</sub>(${fmt(state.xEval)}) = ${fmt(result)} ms</h3><p class="interpretation">Con ${fmt(state.xEval)} GB de RAM, el modelo predice una latencia media de aproximadamente <strong>${fmt(result)} milisegundos</strong>.</p></div>`;
+  $("#resultContent").innerHTML=`<div class="result-card"><small>RESULTADO FINAL</small><div class="final-polynomial"><span>POLINOMIO INTERPOLADOR FINAL</span><strong>P<sub>3</sub>(x) = ${polyText(state.polynomial)}</strong></div><h3>Evaluación: P<sub>3</sub>(${fmt(state.xEval)}) = ${fmt(result)} ms</h3><p class="interpretation">Con ${fmt(state.xEval)} GB de RAM, el modelo predice una latencia media de aproximadamente <strong>${fmt(result)} milisegundos</strong>.</p></div>`;
   $("#auditContent").innerHTML=state.nodes.map((p,i)=>{const got=polyEval(state.polynomial,p.x),err=Math.abs(got-p.y);return `<div class="audit-row"><b>P(${fmt(p.x)}) = ${fmt(got)}</b><span>Dato original y${i} = ${fmt(p.y)}</span><span class="audit-ok">${err<1e-7?"✓ Coincide exactamente":"Diferencia: "+fmt(err)}</span></div>`}).join("");
   requestAnimationFrame(drawChart);
 }
