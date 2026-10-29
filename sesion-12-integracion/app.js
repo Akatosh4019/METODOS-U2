@@ -24,10 +24,7 @@ function compileExpression(raw){
   const words = expr.match(/[a-z_]+/g) || [];
   if (words.some(word => !allowed.has(word))) throw Error("La función contiene un nombre no permitido. Usa t y funciones como sin(), cos(), exp(), sqrt() o log().");
   expr = expr.replace(/\bx\b/g, "t").replace(/\b(sin|cos|tan|exp|sqrt|log|abs)\b/g, "Math.$1").replace(/\bpi\b/g, "Math.PI");
-  const fn = new Function("t", `"use strict"; return (${expr});`);
-  const probe = fn(0);
-  if (!Number.isFinite(probe)) throw Error("La función no produce un valor numérico válido.");
-  return fn;
+  return new Function("t", `"use strict"; return (${expr});`);
 }
 function trapezoid(n){
   const h = (state.b - state.a) / n;
