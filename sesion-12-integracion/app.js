@@ -20,10 +20,10 @@ function show(index){
 function compileExpression(raw){
   let expr = raw.trim().toLowerCase().replaceAll("π", "pi").replace(/\^/g, "**");
   if (!expr || !/^[0-9a-z_+\-*/().\s]+$/.test(expr)) throw Error("Usa solamente números, t, operadores y funciones como sin(), cos(), exp(), sqrt() o log().");
-  const allowed = new Set(["t","sin","cos","tan","exp","sqrt","log","abs","pi"]);
+  const allowed = new Set(["t","x","sin","cos","tan","exp","sqrt","log","abs","pi"]);
   const words = expr.match(/[a-z_]+/g) || [];
   if (words.some(word => !allowed.has(word))) throw Error("La función contiene un nombre no permitido. Usa t y funciones como sin(), cos(), exp(), sqrt() o log().");
-  expr = expr.replace(/\b(sin|cos|tan|exp|sqrt|log|abs)\b/g, "Math.$1").replace(/\bpi\b/g, "Math.PI");
+  expr = expr.replace(/\bx\b/g, "t").replace(/\b(sin|cos|tan|exp|sqrt|log|abs)\b/g, "Math.$1").replace(/\bpi\b/g, "Math.PI");
   const fn = new Function("t", `"use strict"; return (${expr});`);
   const probe = fn(0);
   if (!Number.isFinite(probe)) throw Error("La función no produce un valor numérico válido.");
