@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Regla del trapecio simple y compuesto, paso a paso.">
+  <title>Sesión 12 | Integración numérica</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar"><nav class="nav shell"><a href="../">← MN Métodos Numéricos</a><span>Unidad 3 · Sesión 12</span></nav></header>
+  <header class="hero"><div class="shell hero-grid"><div><p class="eyebrow">INTEGRACIÓN NUMÉRICA</p><h1>Trapecio paso a paso</h1><p>Dividimos el intervalo, construimos los trapecios y verificamos cómo mejora la aproximación.</p></div><div class="formula-mark">T<sub>n</sub> = h [½f(a) + Σf(t<sub>i</sub>) + ½f(b)]</div></div></header>
+
+  <main class="shell main">
+    <section class="stepper" aria-label="Etapas del procedimiento">
+      <div class="step active"><b>1</b><span>Ingresar<small>f(t), intervalo y n</small></span></div><i>→</i>
+      <div class="step"><b>2</b><span>Validar<small>paso y malla</small></span></div><i>→</i>
+      <div class="step"><b>3</b><span>Construir<small>trapecios</small></span></div><i>→</i>
+      <div class="step"><b>4</b><span>Calcular<small>integral y error</small></span></div><i>→</i>
+      <div class="step"><b>5</b><span>Comparar<small>convergencia</small></span></div>
+    </section>
+
+    <section id="screen-input" class="screen active"><div class="workspace"><article class="panel"><div class="panel-heading"><div><p class="eyebrow ink">DATOS DEL PROBLEMA</p><h2>Configura la integral</h2></div><button id="exampleBtn" class="ghost">Cargar ejercicio GAA</button></div>
+      <p class="lead">Escribe una función usando <b>t</b>, por ejemplo: <code>10 + 5*sin(pi*t/4) + exp(0.15*t)</code>.</p>
+      <div class="form-grid"><label class="wide"><b>Función f(t)</b><input id="functionInput" value="10 + 5*sin(pi*t/4) + exp(0.15*t)" autocomplete="off"></label>
+        <label><b>Límite inferior a</b><input id="aInput" type="number" step="any" value="0"></label>
+        <label><b>Límite superior b</b><input id="bInput" type="number" step="any" value="12"></label>
+        <label><b>Subintervalos n</b><input id="nInput" type="number" min="1" step="1" value="4"></label>
+        <label><b>Valor exacto (opcional)</b><input id="exactInput" type="number" step="any" value="166.39671187677126"></label>
+      </div>
+      <div id="inputError" class="error" hidden></div><div class="actions"><button id="startBtn" class="primary">Comenzar el recorrido →</button><button id="clearBtn" class="secondary">Limpiar</button></div>
+    </article><aside class="guide"><p class="eyebrow ink">¿QUÉ HARÁ EL SISTEMA?</p><h2>Regla del trapecio</h2><div class="guide-item"><b>1 · Malla uniforme</b><span>Calcula h = (b − a)/n y los puntos t₀, …, tₙ.</span></div><div class="guide-item"><b>2 · Área aproximada</b><span>Usa los extremos con peso ½ y los nodos internos con peso 1.</span></div><div class="guide-item"><b>3 · Convergencia</b><span>Compara n = 4, 10, 50, 100 y 1000 cuando exista un valor exacto.</span></div></aside></div></section>
+
+    <section id="screen-validation" class="screen"><article class="panel"><p class="eyebrow ink">PASO 1</p><h2>Validamos el intervalo y la malla</h2><p class="lead">La regla del trapecio compuesto necesita un intervalo válido y un número entero positivo de subintervalos.</p><div id="validationContent"></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button id="toTable" class="primary">Construir los trapecios →</button></div></article></section>
+
+    <section id="screen-table" class="screen"><article class="panel"><p class="eyebrow ink">PASO 2</p><h2>Tabla de trapecios</h2><p class="lead">Cada fila muestra un nodo de la malla, su valor de función, el peso que recibe y su aporte ponderado.</p><div id="tableContent"></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button id="toResult" class="primary">Calcular la integral →</button></div></article></section>
+
+    <section id="screen-result" class="screen"><div class="result-layout"><article class="panel"><p class="eyebrow ink">RESULTADO FINAL</p><h2>Integral aproximada y comprobada</h2><div id="resultContent"></div><div class="chart-wrap"><canvas id="chart" width="900" height="430"></canvas></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button id="toConvergence" class="primary">Ver convergencia →</button></div></article><aside class="panel"><p class="eyebrow ink">INTERPRETACIÓN</p><h2>Lectura del resultado</h2><div id="auditContent"></div></aside></div></section>
+
+    <section id="screen-convergence" class="screen"><article class="panel"><p class="eyebrow ink">PASO 4</p><h2>Análisis de convergencia</h2><p class="lead">La actividad solicita comparar las aproximaciones para distintos valores de n.</p><div id="convergenceContent"></div><div class="actions navigation"><button class="secondary back-step">← Regresar</button><button class="finished" disabled>Terminado</button></div></article></section>
+  </main><footer><div class="shell">Métodos Numéricos · Unidad 3 · Integración numérica</div></footer><script src="app.js"></script>
+</body></html>
